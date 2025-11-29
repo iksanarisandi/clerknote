@@ -1,0 +1,41 @@
+{
+  "name": "web-note-clerk",
+  "version": "1.0.0",
+  "description": "A simple web note application with Clerk authentication, hosted on Netlify with Neon database",
+  "main": "index.html",
+  "scripts": {
+    "dev": "npx serve .",
+    "build": "echo 'No build step required for static site'",
+    "test": "echo 'No tests specified'",
+    "lint": "echo 'No linting configured'"
+  },
+  "dependencies": {
+    "pg": "^8.11.3",
+    "@clerk/clerk-sdk-node": "^4.13.6"
+  },
+  "devDependencies": {
+    "serve": "^14.2.1"
+  },
+  "keywords": [
+    "notes",
+    "clerk",
+    "netlify",
+    "neon",
+    "postgresql",
+    "vanilla-javascript",
+    "mobile-friendly"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/web-note-clerk.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/web-note-clerk/issues"
+  },
+  "homepage": "https://github.com/yourusername/web-note-clerk#readme",
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

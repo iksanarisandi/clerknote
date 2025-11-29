@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catatan Sederhana</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@clerk/clerk-js@latest/dist/clerk.browser.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- Header -->
+        <header class="header">
+            <div class="container">
+                <h1 class="logo">📝 Catatan</h1>
+                <div id="user-section" class="user-section">
+                    <div id="clerk-user-button"></div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="container">
+                <!-- Login State -->
+                <div id="login-state" class="login-state">
+                    <h2>Selamat Datang di Catatan Sederhana</h2>
+                    <p>Silakan login untuk mulai mencatat</p>
+                    <div id="clerk-sign-in"></div>
+                </div>
+
+                <!-- Dashboard State -->
+                <div id="dashboard-state" class="dashboard-state hidden">
+                    <!-- Create Note Section -->
+                    <section class="create-note-section">
+                        <h2>Buat Catatan Baru</h2>
+                        <form id="create-note-form" class="note-form">
+                            <input type="text" id="note-title" placeholder="Judul catatan..." required>
+                            <textarea id="note-content" placeholder="Isi catatan..." rows="4" required></textarea>
+                            <button type="submit" class="btn btn-primary">Simpan Catatan</button>
+                        </form>
+                    </section>
+
+                    <!-- Notes List Section -->
+                    <section class="notes-list-section">
+                        <h2>Catatan Saya</h2>
+                        <div id="notes-container" class="notes-container">
+                            <div class="empty-state">
+                                <p>Belum ada catatan. Buat catatan pertama Anda!</p>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </main>
+
+        <!-- Note Editor Modal -->
+        <div id="note-modal" class="modal hidden">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Edit Catatan</h3>
+                    <button class="modal-close">&times;</button>
+                </div>
+                <form id="edit-note-form" class="note-form">
+                    <input type="hidden" id="edit-note-id">
+                    <input type="text" id="edit-note-title" placeholder="Judul catatan..." required>
+                    <textarea id="edit-note-content" placeholder="Isi catatan..." rows="6" required></textarea>
+                    <div class="modal-actions">
+                        <button type="button" class="btn btn-secondary modal-cancel">Batal</button>
+                        <button type="submit" class="btn btn-primary">Update Catatan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Loading State -->
+        <div id="loading" class="loading hidden">
+            <div class="spinner"></div>
+            <p>Loading...</p>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/auth.js"></script>
+    <script src="js/notes.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

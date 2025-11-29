@@ -9,13 +9,25 @@ class AuthManager {
     // Initialize Clerk
     async initialize() {
         try {
+            // Wait for Clerk to be available from CDN
+            let attempts = 0;
+            const maxAttempts = 50; // 5 seconds timeout
+            
+            while (typeof Clerk === 'undefined' && attempts < maxAttempts) {
+                await new Promise(resolve => setTimeout(resolve, 100));
+                attempts++;
+            }
+            
+            if (typeof Clerk === 'undefined') {
+                throw new Error('Clerk library failed to load from CDN');
+            }
+            
             // Initialize Clerk with your publishable key
-            // For local development, use the key directly
-            // For production, use environment variable or hardcoded key
             const publishableKey = 'pk_test_bmF0aW9uYWwtcGFudGhlci05MC5jbGVyay5hY2NvdW50cy5kZXYk';
             if (!publishableKey) {
                 throw new Error('Clerk publishable key not found');
             }
+            
             this.clerk = new Clerk(publishableKey);
             await this.clerk.load();
             

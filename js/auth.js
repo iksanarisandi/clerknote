@@ -6,6 +6,24 @@ class AuthManager {
         this.isInitialized = false;
     }
 
+    // Get publishable key from server
+    async getPublishableKeyFromServer() {
+        try {
+            const response = await fetch('/.netlify/functions/get-clerk-config');
+            const data = await response.json();
+            
+            if (data.success) {
+                return data.publishableKey;
+            } else {
+                throw new Error(data.error || 'Failed to get Clerk config');
+            }
+        } catch (error) {
+            console.error('Error getting Clerk config from server:', error);
+            // Fallback to hardcoded key if server is unavailable
+            return 'pk_test_bmF0aW9uYWwtcGFudGhlci05MC5jbGVyay5hY2NvdW50cy5kZXYk';
+        }
+    }
+
     // Initialize Clerk
     async initialize() {
         try {
@@ -22,10 +40,11 @@ class AuthManager {
                 throw new Error('Clerk library failed to load from CDN');
             }
             
-            // Initialize Clerk with your publishable key
-            const publishableKey = 'pk_test_bmF0aW9uYWwtcGFudGhlci05MC5jbGVyay5hY2NvdW50cy5kZXYk';
-            if (!publishableKey) {
-                throw new Error('Clerk publishable key not found');
+            // Get publishable key from server instead of hardcoded value
+            const publishableKey = await this.getPublishableKeyFromServer();
+            
+            if (!publishableKey || publishableKey === 'your_clerk_publishable_key_here') {
+                throw new Error('Clerk publishable key is not configured. Please set VITE_CLERK_PUBLISHABLE_KEY in Netlify environment variables.');
             }
             
             this.clerk = new Clerk(publishableKey);

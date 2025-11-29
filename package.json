@@ -10,8 +10,8 @@
     "lint": "echo 'No linting configured'"
   },
   "dependencies": {
-    "pg": "^8.11.3",
-    "@clerk/clerk-sdk-node": "^4.13.6"
+    "@clerk/clerk-sdk-node": "^4.13.23",
+    "pg": "^8.11.3"
   },
   "devDependencies": {
     "serve": "^14.2.1"

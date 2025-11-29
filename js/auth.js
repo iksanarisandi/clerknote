@@ -10,9 +10,13 @@ class AuthManager {
     async initialize() {
         try {
             // Initialize Clerk with your publishable key
-            // For local development, replace this with your actual key
-            // For production, this should be set in Netlify environment variables
-            this.clerk = new Clerk('pk_test_bmF0aW9uYWwtcGFudGhlci05MC5jbGVyay5hY2NvdW50cy5kZXYk');
+            // For local development, use the key directly
+            // For production, use environment variable or hardcoded key
+            const publishableKey = 'pk_test_bmF0aW9uYWwtcGFudGhlci05MC5jbGVyay5hY2NvdW50cy5kZXYk';
+            if (!publishableKey) {
+                throw new Error('Clerk publishable key not found');
+            }
+            this.clerk = new Clerk(publishableKey);
             await this.clerk.load();
             
             this.isInitialized = true;
